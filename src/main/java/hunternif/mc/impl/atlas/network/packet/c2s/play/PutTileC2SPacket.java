@@ -18,7 +18,7 @@ public class PutTileC2SPacket extends C2SPacket {
 	public static final ResourceLocation ID = AntiqueAtlasMod.id("packet", "c2s", "tile", "put");
 
 	public PutTileC2SPacket(int atlasID, int x, int z, ResourceLocation tile) {
-		this.writeInt(atlasID);
+		this.writeVarInt(atlasID);
 		this.writeVarInt(x);
 		this.writeVarInt(z);
 		this.writeResourceLocation(tile);

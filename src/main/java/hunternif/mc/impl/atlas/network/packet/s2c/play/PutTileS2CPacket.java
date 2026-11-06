@@ -21,7 +21,7 @@ public class PutTileS2CPacket extends S2CPacket {
 	public static final ResourceLocation ID = AntiqueAtlasMod.id("packet", "s2c", "tile", "put");
 
 	public PutTileS2CPacket(int atlasID, ResourceKey<Level> world, int x, int z, ResourceLocation tile) {
-		this.writeInt(atlasID);
+		this.writeVarInt(atlasID);
 		this.writeResourceLocation(world.location());
 		this.writeVarInt(x);
 		this.writeVarInt(z);

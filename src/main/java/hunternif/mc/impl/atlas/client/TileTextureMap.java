@@ -284,8 +284,18 @@ public class TileTextureMap {
             return getDefaultTexture();
         }
 
-        return textureMap.getOrDefault(tile, getDefaultTexture());
+        TextureSet set = textureMap.get(tile);
+        if (set == null) {
+            if (UNKNOWN_TILES_LOGGED.add(tile)) {
+                Log.warn("No texture set for map tile %s, drawing the placeholder texture. Add a tile mapping for it (atlas/tiles/<name>.json in a resource pack).", tile);
+            }
+            return getDefaultTexture();
+        }
+        return set;
     }
+
+    /** Tiles already reported as missing a texture set, so each is only logged once. */
+    private static final Set<ResourceLocation> UNKNOWN_TILES_LOGGED = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     public ITexture getTexture(SubTile subTile) {
         return getTextureSet(subTile.tile).getTexture(subTile.variationNumber);
