@@ -21,6 +21,11 @@ public class AntiqueAtlasModForge {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AntiqueAtlasConfig.SPEC, "antiqueatlas-common.toml");
         modBus.addListener((ModConfigEvent.Loading event) -> onConfig(event.getConfig()));
         modBus.addListener((ModConfigEvent.Reloading event) -> onConfig(event.getConfig()));
+        modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event) -> {
+            if (net.minecraftforge.fml.ModList.get().isLoaded("waystones")) {
+                event.enqueueWork(hunternif.mc.impl.atlas.compat.WaystonesCompat::init);
+            }
+        });
 
         NetworkManager.init();
         AntiqueAtlasMod.init(modBus);
@@ -33,6 +38,7 @@ public class AntiqueAtlasModForge {
     private static void onConfig(ModConfig config) {
         if (config.getSpec() == AntiqueAtlasConfig.SPEC) {
             AntiqueAtlasMod.CONFIG = AntiqueAtlasConfig.bake();
+            hunternif.mc.impl.atlas.structure.AutoMarkers.reload();
         }
     }
 }

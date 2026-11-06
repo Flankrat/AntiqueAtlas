@@ -1,9 +1,9 @@
 {
 	"version": 1,
 	"textures": [
-		"antiqueatlas:textures/gui/markers/end_city.png",
-		"antiqueatlas:textures/gui/markers/end_city_mipped_32.png",
-		"antiqueatlas:textures/gui/markers/end_city_mipped_16.png"
+		"antiqueatlas:textures/gui/markers/artsy/end_city.png",
+		"antiqueatlas:textures/gui/markers/artsy/end_city_mipped_32.png",
+		"antiqueatlas:textures/gui/markers/artsy/end_city_mipped_16.png"
 	],
 	"size": 3,
 	"clipMin": -1,

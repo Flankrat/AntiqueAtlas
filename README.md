@@ -11,7 +11,8 @@ This is a Forge-only version of Antique Atlas for Minecraft 1.20.1, made for the
 - Add a filled **map** to an atlas in a cartography table.
 - Open the atlas to see the full map: drag to pan, use the arrow buttons or keys to move, and scroll or press +/- to zoom. Markers can be added, labeled and deleted, and the map can be exported to a PNG image.
 - While you **hold an atlas**, a small copy of its map is shown in the top-right corner of the screen (the 1.12.2 minimap).
-- Villages and some other structures, like End cities and Nether fortresses, are marked on the map automatically, and the spot where you die gets a death marker.
+- Villages, dragon roosts and caves, battle towers, dungeons, the big RLCraft landmarks and many other structures are marked on the map automatically, and the spot where you die gets a death marker (see *Automatic markers* below).
+- With the Waystones mod, every waystone you activate is marked with its name on the atlases you carry.
 
 All settings are in `config/antiqueatlas-common.toml`:
 - `[gameplay]`: atlas item required, automatic markers, browsing position.
@@ -19,6 +20,21 @@ All settings are in `config/antiqueatlas-common.toml`:
 - `[performance]`: scan radius and rescanning.
 - `[appearance]`: the map drawn on the held atlas (off by default, see `mapOnHeldAtlas`).
 - `[minimap]`: the corner minimap's position, size, tile and marker size, whether the atlas has to be held, and optional coordinates and biome name under the map (off by default).
+- `[autoMarkers]`: which structures and world generation features get markers, and waystone markers.
+
+### Automatic markers
+
+Like the 1.12.2 AntiqueAtlasAutoMarker mod used by RLCraft Dregora, structures and other places are marked on every atlas once they generate. Each line of `structureMarkers` in `[autoMarkers]` is `structure, marker type, label`:
+
+```
+structureMarkers = ["minecraft:stronghold, dungeon, Stronghold", "#minecraft:village, village, Village", "fbt:mega_battletower, megatower, Mega Battle Tower"]
+```
+
+- The structure is a structure id, or a structure tag starting with `#`. `/locate structure` lists the ids.
+- The marker type is a marker from `atlas/markers` (anvil, bed, book, cave, defiled, diamond, dragon_blue, dragon_gold, dragon_green, dragon_purple, dragon_red, dungeon, end_city, farm, google, lycanites, mansion, megatower, monsterspawner, monument, nether_portal, parasite, pickaxe, quadtower, red_x_large, red_x_small, ruins, scroll, ship, skull, sword, tomb, tower, tracks, village, waystone, wizardtower).
+- The label can be empty.
+
+`featureMarkers` works the same way for world generation features that aren't structures, such as Ice and Fire's dragon roosts and caves. The defaults cover the structures of the RLCraft 1.20.1 pack; ids of mods that aren't installed are simply ignored. Only places that generate after a line is added get markers.
 
 Biome textures are chosen from biome tags, so modded biomes get a fitting texture automatically. Resource packs can assign their own textures; see the [wiki on editing textures](https://github.com/Hunternif/AntiqueAtlas/wiki/Editing-Textures).
 
@@ -44,6 +60,7 @@ This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/An
   - The export progress bar and the held-atlas rendering used mixins that Forge's renderers bypass; they now use Forge events.
   - The cartography table mixin targets the production name of the method it hooks.
   - Atlas items and recipes are always registered, so a client and server can't disagree about them.
+- **Automatic markers** for structures, world generation features and activated waystones, set up in the config like RLCraft Dregora's AntiqueAtlasAutoMarker. Village markers now use the `#minecraft:village` tag, so they work again (they had stopped working in 1.20).
 - **The 1.12.2 corner minimap is back.** Antique Atlas 7 had replaced it with drawing the map on the atlas in your hand; that is still available as an option.
 
 ## Credits
@@ -53,6 +70,8 @@ This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/An
 **Antique Atlas 5 to 7** (Minecraft 1.14 to 1.18.2, Fabric and Forge) were maintained by **tyra314** and the AntiqueAtlasTeam. Much of the code from that time is by **Haven King** (including the networking), with many more changes from **Stereowalker**, **OsipXD** and **asiekierka**.
 
 **The corner minimap** comes from **Kenkron**'s *Antique Atlas Overlay*, which was merged into Antique Atlas for 1.12.2 and is what RLCraft and RLCraft Dregora show. Its settings and defaults in this version follow RLCraft Dregora.
+
+**The automatic markers** follow **Nischhelm**'s *AntiqueAtlasAutoMarker* and **Fonnymunkey**'s *AARCAddon* for 1.12.2, as set up in RLCraft Dregora. The marker icons in `textures/gui/markers/artsy` are by **Artsy** and the ones in `textures/gui/markers/knightgallade` by **Knight Gallade**, made for RLCraft and RLCraft Dregora, and are used here for the RLCraft 1.20.1 port. The code that places the markers is new in this version.
 
 **The 1.20.1 port** this fork is based on is by **ByteDevEs** ([ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/AntiqueAtlas)).
 
@@ -68,6 +87,7 @@ This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/An
 
 - **Code** (`src/main/java`): GNU GPL v3 or later. This modified version is also GPL v3, and its source is this repository.
 - **Textures** (`src/main/resources/assets/antiqueatlas/textures`): by Hunternif, under [Creative Commons Attribution-NonCommercial-ShareAlike 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/), which means credit Hunternif and no commercial use.
+- **RLCraft marker icons** (`textures/gui/markers/artsy` and `textures/gui/markers/knightgallade`): by Artsy and Knight Gallade for RLCraft; not covered by the licenses above.
 
 See [LICENSE](LICENSE) for the full text.
 
