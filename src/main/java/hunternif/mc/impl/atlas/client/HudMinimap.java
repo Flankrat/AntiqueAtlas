@@ -16,7 +16,11 @@ import hunternif.mc.impl.atlas.marker.MarkersData;
 import hunternif.mc.impl.atlas.registry.MarkerRenderInfo;
 import hunternif.mc.impl.atlas.registry.MarkerType;
 import hunternif.mc.impl.atlas.util.Rect;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -79,6 +83,31 @@ public final class HudMinimap {
 
         drawMinimap(event.getGuiGraphics(), bounds, atlasID, mc.player, mc.level, config,
                 (int) mc.getWindow().getGuiScale());
+        drawInfoLines(event.getGuiGraphics(), bounds, mc, config);
+    }
+
+    /** Optional coordinates and biome name, centered under the map (or above it when aligned to the bottom). */
+    private static void drawInfoLines(GuiGraphics graphics, Rect bounds, Minecraft mc, AntiqueAtlasConfig config) {
+        List<Component> lines = new ArrayList<>();
+        BlockPos pos = mc.player.blockPosition();
+        if (config.minimapShowCoordinates) {
+            lines.add(Component.literal(pos.getX() + ", " + pos.getZ()));
+        }
+        if (config.minimapShowBiome) {
+            mc.level.getBiome(pos).unwrapKey().ifPresent(key -> lines.add(Component.translatable(
+                    Util.makeDescriptionId("biome", key.location()))));
+        }
+        if (lines.isEmpty()) {
+            return;
+        }
+        Font font = mc.font;
+        int lineHeight = font.lineHeight + 1;
+        int centerX = (bounds.minX + bounds.maxX) / 2;
+        int y = config.minimapAlignBottom ? bounds.minY - 1 - lines.size() * lineHeight : bounds.maxY + 2;
+        for (Component line : lines) {
+            graphics.drawCenteredString(font, line, centerX, y, 0xFFFFFF);
+            y += lineHeight;
+        }
     }
 
     /** The atlas in the main hand, else the off hand. */

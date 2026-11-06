@@ -14,7 +14,7 @@ public class AntiqueAtlasConfig {
     //============ Gameplay settings ==============
     public boolean doSaveBrowsingPos = true;
     public boolean autoDeathMarker = true;
-    public boolean autoVillageMarkers = false;
+    public boolean autoVillageMarkers = true;
     public boolean autoNetherPortalMarkers = true;
     public boolean itemNeeded = true;
 
@@ -60,6 +60,8 @@ public class AntiqueAtlasConfig {
     public int minimapPlayerIconHeight = 8;
     public float minimapBorderX = 0.0F;
     public float minimapBorderY = 0.0F;
+    public boolean minimapShowCoordinates = false;
+    public boolean minimapShowBiome = false;
 
     public static final ForgeConfigSpec SPEC;
 
@@ -106,6 +108,8 @@ public class AntiqueAtlasConfig {
     private static final ForgeConfigSpec.IntValue MINIMAP_PLAYER_ICON_HEIGHT;
     private static final ForgeConfigSpec.DoubleValue MINIMAP_BORDER_X;
     private static final ForgeConfigSpec.DoubleValue MINIMAP_BORDER_Y;
+    private static final ForgeConfigSpec.BooleanValue MINIMAP_SHOW_COORDINATES;
+    private static final ForgeConfigSpec.BooleanValue MINIMAP_SHOW_BIOME;
 
     static {
         AntiqueAtlasConfig d = new AntiqueAtlasConfig();
@@ -226,6 +230,10 @@ public class AntiqueAtlasConfig {
                         "Represented as a fraction of the image height.",
                         "Below a certain threshold, this border will be overtaken by the map border graphic.")
                 .defineInRange("borderY", (double) d.minimapBorderY, 0.0, 0.5);
+        MINIMAP_SHOW_COORDINATES = b.comment("Show your X and Z coordinates under the minimap (above it if alignBottom is true).")
+                .define("showCoordinates", d.minimapShowCoordinates);
+        MINIMAP_SHOW_BIOME = b.comment("Show the name of the biome you're in under the minimap (above it if alignBottom is true).")
+                .define("showBiome", d.minimapShowBiome);
         b.pop();
 
         SPEC = b.build();
@@ -277,6 +285,8 @@ public class AntiqueAtlasConfig {
         c.minimapPlayerIconHeight = MINIMAP_PLAYER_ICON_HEIGHT.get();
         c.minimapBorderX = MINIMAP_BORDER_X.get().floatValue();
         c.minimapBorderY = MINIMAP_BORDER_Y.get().floatValue();
+        c.minimapShowCoordinates = MINIMAP_SHOW_COORDINATES.get();
+        c.minimapShowBiome = MINIMAP_SHOW_BIOME.get();
         return c;
     }
 }

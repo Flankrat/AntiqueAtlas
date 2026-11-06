@@ -11,14 +11,14 @@ This is a Forge-only version of Antique Atlas for Minecraft 1.20.1, made for the
 - Add a filled **map** to an atlas in a cartography table.
 - Open the atlas to see the full map: drag to pan, use the arrow buttons or keys to move, and scroll or press +/- to zoom. Markers can be added, labeled and deleted, and the map can be exported to a PNG image.
 - While you **hold an atlas**, a small copy of its map is shown in the top-right corner of the screen (the 1.12.2 minimap).
-- Some structures, like End cities and Nether fortresses, are marked on the map automatically (villages too, if `autoVillageMarkers` is on), and the spot where you die gets a death marker.
+- Villages and some other structures, like End cities and Nether fortresses, are marked on the map automatically, and the spot where you die gets a death marker.
 
 All settings are in `config/antiqueatlas-common.toml`:
 - `[gameplay]`: atlas item required, automatic markers, browsing position.
 - `[userInterface]`: zoom levels and scroll direction.
 - `[performance]`: scan radius and rescanning.
 - `[appearance]`: the map drawn on the held atlas (off by default, see `mapOnHeldAtlas`).
-- `[minimap]`: the corner minimap's position, size, tile and marker size, and whether the atlas has to be held.
+- `[minimap]`: the corner minimap's position, size, tile and marker size, whether the atlas has to be held, and optional coordinates and biome name under the map (off by default).
 
 Biome textures are chosen from biome tags, so modded biomes get a fitting texture automatically. Resource packs can assign their own textures; see the [wiki on editing textures](https://github.com/Hunternif/AntiqueAtlas/wiki/Editing-Textures).
 
