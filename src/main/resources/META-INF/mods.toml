@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="GNU GENERAL PUBLIC LICENSE"
+issueTrackerURL="https://github.com/Flankrat/AntiqueAtlas/issues"
+
+[[mods]]
+modId="antiqueatlas"
+version="${mod_version}"
+logoFile="antiqueatlas_icon.png"
+displayName="Antique Atlas"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/antique-atlas"
+credits="Hunternif, Kenkron, osipxd, thecodewarrior, TehNut, crafteverywhere, coolAlias, Ruukas97, Mazdallier, chesterccj305, asiekierka, sam-kirby, esotericist, dadodollabela, Yulife, Waterrail, The-Fireplace, TBM13, Rikshy, GirafiStudios, DrCopernicus, DBotThePony, AugiteSoul, Stereowalker, ByteDevES (1.20.1 port), Flankrat (Forge-only conversion)"
+authors="Hunternif, tyra314"
+description='''
+Antique Atlas is a book that acts like a map featuring infinite scrolling, zoom and custom labeled markers. The map is generated around the player by calculating the average biome in each 16x16 chunk.
+'''
+
+[[dependencies.antiqueatlas]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.antiqueatlas]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,)"
+ordering="NONE"
+side="BOTH"
