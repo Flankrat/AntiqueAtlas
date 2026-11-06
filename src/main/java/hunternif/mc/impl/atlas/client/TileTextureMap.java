@@ -152,6 +152,23 @@ public class TileTextureMap {
             return Optional.of(AntiqueAtlasMod.id("plateau_mesa"));
         }
 
+        if (biomeTag.is(BiomeTags.IS_TAIGA) || biomeTag.is(Tags.Biomes.IS_CONIFEROUS)) {
+            boolean cold = biomeTag.is(Tags.Biomes.IS_COLD) || biomeTag.is(Tags.Biomes.IS_SNOWY)
+                    || biomeTag.value().getBaseTemperature() < 0.15F;
+            if (biomeTag.is(BiomeTags.IS_HILL)) {
+                return Optional.of(AntiqueAtlasMod.id(cold ? "snow_pines_hills" : "pines_hills"));
+            }
+            return Optional.of(AntiqueAtlasMod.id(cold ? "snow_pines" : "pines"));
+        }
+
+        if (biomeTag.is(Tags.Biomes.IS_DESERT) || biomeTag.is(Tags.Biomes.IS_SANDY)) {
+            return Optional.of(AntiqueAtlasMod.id(biomeTag.is(BiomeTags.IS_HILL) ? "desert_hills" : "desert"));
+        }
+
+        if (biomeTag.is(Tags.Biomes.IS_UNDERGROUND) || biomeTag.is(Tags.Biomes.IS_CAVE)) {
+            return Optional.of(AntiqueAtlasMod.id("cave_walls"));
+        }
+
         if (biomeTag.is(BiomeTags.IS_FOREST)
                 || biomeTag.is(Tags.Biomes.IS_DENSE)
                 || biomeTag.is(Tags.Biomes.IS_SPARSE)) {
@@ -222,54 +239,35 @@ public class TileTextureMap {
             return Optional.of(AntiqueAtlasMod.id("hills"));
         }
 
-        if (biomeTag.is(Tags.Biomes.IS_UNDERGROUND)) {
-            AntiqueAtlasMod.LOG.warn("Underground biomes aren't supported yet.");
-        }
-
         return TileTextureMap.guessFittingTextureSetFallback(biomeTag);
     }
 
-    //TODO: This is not implemented, because I do not want to do this.
+    /**
+     * Last resort for biomes that none of the tag checks above match (biomes from mods with
+     * few or no tags): pick a texture set from the biome's climate, so no biome ends up with
+     * the placeholder texture.
+     */
     static public Optional<ResourceLocation> guessFittingTextureSetFallback(Holder.Reference<Biome> biome) {
-        AntiqueAtlasMod.LOG.error("FALLBACK WAS CALLED");
-        /**Identifier texture_set = switch (biome.getCategory()) {
-            case SWAMP -> AntiqueAtlasMod.id("swamp");
-            case OCEAN, RIVER ->
-                    biome.getPrecipitation() == Biome.Precipitation.SNOW ? AntiqueAtlasMod.id("ice") : AntiqueAtlasMod.id("water");
-            case BEACH -> AntiqueAtlasMod.id("shore");
-            case JUNGLE -> AntiqueAtlasMod.id("jungle");
-            case SAVANNA -> AntiqueAtlasMod.id("savanna");
-            case MESA -> AntiqueAtlasMod.id("plateau_mesa");
-            case FOREST ->
-                    biome.getPrecipitation() == Biome.Precipitation.SNOW ? AntiqueAtlasMod.id("snow_pines") : AntiqueAtlasMod.id("forest");
-            case PLAINS ->
-                    biome.getPrecipitation() == Biome.Precipitation.SNOW ? AntiqueAtlasMod.id("snow") : AntiqueAtlasMod.id("plains");
-            case ICY -> AntiqueAtlasMod.id("ice_spikes");
-            case DESERT -> AntiqueAtlasMod.id("desert");
-            case TAIGA -> AntiqueAtlasMod.id("snow");
-            case EXTREME_HILLS -> AntiqueAtlasMod.id("hills");
-            case MOUNTAIN -> AntiqueAtlasMod.id("mountains");
-            case THEEND -> {
-                List<RegistryEntryList<PlacedFeature>> features = biome.getGenerationSettings().getFeatures();
-                PlacedFeature chorus_plant_feature = BuiltinRegistries.PLACED_FEATURE.get(new Identifier("chorus_plant"));
-                assert chorus_plant_feature != null;
-                boolean has_chorus_plant = features.stream().anyMatch(entries -> entries.stream().anyMatch(feature -> feature.value() == chorus_plant_feature));
-                if (has_chorus_plant) {
-                    yield AntiqueAtlasMod.id("end_island_plants");
-                } else {
-                    yield AntiqueAtlasMod.id("end_island");
-                }
-            }
-            case MUSHROOM -> AntiqueAtlasMod.id("mushroom");
-            case NETHER -> AntiqueAtlasMod.id("soul_sand_valley");
-            case NONE -> AntiqueAtlasMod.id("end_void");
-            case UNDERGROUND -> {
-                Log.warn("Underground biomes aren't supported yet.");
-                yield null;
-            }
-        };**/
-
-        return Optional.ofNullable(null);
+        Biome b = biome.value();
+        float temperature = b.getBaseTemperature();
+        float downfall = b.getModifiedClimateSettings().downfall();
+        String set;
+        if (temperature < 0.15F) {
+            set = "snow";
+        } else if (!b.hasPrecipitation() && temperature >= 1.5F) {
+            set = "desert";
+        } else if (temperature >= 0.9F && downfall >= 0.85F) {
+            set = "jungle";
+        } else if (downfall >= 0.6F) {
+            set = "forest";
+        } else if (temperature >= 1.2F) {
+            set = "savanna";
+        } else {
+            set = "plains";
+        }
+        AntiqueAtlasMod.LOG.info("No biome tags matched {}; chose texture set {} from its climate (temperature {}, downfall {})",
+                biome.key().location(), set, temperature, downfall);
+        return Optional.of(AntiqueAtlasMod.id(set));
     }
 
     public boolean isRegistered(ResourceLocation id) {
