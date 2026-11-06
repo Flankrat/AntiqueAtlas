@@ -21,7 +21,7 @@ version = mod_version
 group = mod_group
 
 base {
-    archivesName = "${mod_name}-${mc_version}"
+    archivesName = "${mod_name}-RLCraft-${mc_version}"
 }
 
 // Minecraft 1.20.1 runs on Java 17. Any JDK 17+ can build this; the bytecode targets 17.
