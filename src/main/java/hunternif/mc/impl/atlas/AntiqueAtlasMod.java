@@ -83,9 +83,9 @@ public class AntiqueAtlasMod {
         StructureAddedCallback.EVENT.register(StructureHandler::resolve);
 
         NetherFortress.registerPieces();
-        EndCity.registerMarkers();
-        Village.registerMarkers();
         Overworld.registerPieces();
+
+        forgeBus.addListener((net.minecraftforge.event.server.ServerStoppedEvent event) -> AutoMarkers.clearSession());
 
         JigsawConfig jigsawConfig = new JigsawConfig();
         forgeBus.addListener((AddReloadListenerEvent event) -> event.addListener(jigsawConfig));

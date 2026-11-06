@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class StructureHandler {
     private static final HashMultimap<ResourceLocation, Tuple<ResourceLocation, Setter>> STRUCTURE_PIECE_TO_TILE_MAP = HashMultimap.create();
     private static final Multimap<ResourceLocation, Tuple<ResourceLocation, Setter>> JIGSAW_TO_TILE_MAP = HashMultimap.create();
-    private static final Map<ResourceLocation, Tuple<ResourceLocation, Component>> STRUCTURE_PIECE_TO_MARKER_MAP = new HashMap<>();
     private static final Map<ResourceLocation, Integer> STRUCTURE_PIECE_TILE_PRIORITY = new HashMap<>();
     public static final Setter ALWAYS = (world, element, box, rotation) -> Collections.singleton(new ChunkPos(MathUtil.getCenter(box).getX() >> 4, MathUtil.getCenter(box).getZ() >> 4));
 
@@ -61,8 +60,6 @@ public class StructureHandler {
         return Collections.emptyList();
     }
 
-    private static final Set<Triple<Integer, Integer, ResourceLocation>> VISITED_STRUCTURES = Collections.newSetFromMap(new ConcurrentHashMap<>());
-
     public static void registerTile(StructurePieceType structurePieceType, int priority, ResourceLocation textureId, Setter setter) {
         ResourceLocation id = BuiltInRegistries.STRUCTURE_PIECE.getKey(structurePieceType);
         STRUCTURE_PIECE_TO_TILE_MAP.put(id, new Tuple<>(textureId, setter));
@@ -80,12 +77,6 @@ public class StructureHandler {
 
     public static void registerJigsawTile(ResourceLocation jigsawPattern, int priority, ResourceLocation tileID) {
         registerJigsawTile(jigsawPattern, priority, tileID, ALWAYS);
-    }
-
-    public static void registerMarker(Iterable<ResourceKey<?>> structureFeatures, ResourceLocation markerType, Component name) {
-        structureFeatures.forEach(structureFeature -> {
-            STRUCTURE_PIECE_TO_MARKER_MAP.put(structureFeature.location(), new Tuple<>(markerType, name));
-        });
     }
 
     private static int getPriority(ResourceLocation structurePieceId) {
@@ -144,25 +135,7 @@ public class StructureHandler {
     }
 
     public static void resolve(StructureStart structureStart, ServerLevel world) {
-        ResourceLocation structureId = BuiltInRegistries.STRUCTURE_TYPE.getKey(structureStart.getStructure().type());
-        if (STRUCTURE_PIECE_TO_MARKER_MAP.containsKey(structureId)) {
-            Triple<Integer, Integer, ResourceLocation> key = Triple.of(
-                    structureStart.getBoundingBox().getCenter().getX(),
-                    structureStart.getBoundingBox().getCenter().getY(),
-                    structureId);
-
-            if (VISITED_STRUCTURES.contains(key)) return;
-            VISITED_STRUCTURES.add(key);
-
-            AtlasAPI.getMarkerAPI().putGlobalMarker(
-                    world,
-                    false,
-                    STRUCTURE_PIECE_TO_MARKER_MAP.get(structureId).getA(),
-                    STRUCTURE_PIECE_TO_MARKER_MAP.get(structureId).getB(),
-                    structureStart.getBoundingBox().getCenter().getX(),
-                    structureStart.getBoundingBox().getCenter().getZ()
-            );
-        }
+        AutoMarkers.onStructurePlaced(structureStart, world);
     }
 
     interface Setter {

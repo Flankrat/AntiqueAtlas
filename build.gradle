@@ -59,9 +59,22 @@ repositories {
     mavenCentral()
 }
 
+// Compile-only copies of the few Waystones and Balm API classes the optional Waystones
+// support uses. They are not packaged; at runtime the real mods provide them.
+sourceSets {
+    stubs {
+        java.srcDir 'src/stubs/java'
+    }
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly sourceSets.stubs.output
+}
+
+configurations {
+    stubsCompileClasspath.extendsFrom(minecraft)
 }
 
 mixin {

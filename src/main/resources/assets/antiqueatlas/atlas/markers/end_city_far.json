@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"textures": [
-		"antiqueatlas:textures/gui/markers/end_city_far.png"
+		"antiqueatlas:textures/gui/markers/artsy/end_city_far.png"
 	],
 	"size": 1,
 	"clipMin": -2,
