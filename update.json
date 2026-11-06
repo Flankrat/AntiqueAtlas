@@ -1,0 +1,10 @@
+{
+  "homepage": "https://github.com/Flankrat/AntiqueAtlas/releases",
+  "promos": {
+    "1.20.1-latest": "7.2.0",
+    "1.20.1-recommended": "7.2.0"
+  },
+  "1.20.1": {
+    "7.2.0": "Forge-only build for the RLCraft 1.20.1 port: no Architectury or Cloth Config, the 1.12.2 corner minimap, the atlas book in hand, and map textures for every biome."
+  }
+}
