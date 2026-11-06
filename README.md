@@ -30,7 +30,7 @@ gradlew build
 
 The mod jar is in `build/libs`. Building needs a Java 17 JDK.
 
-Releases are on the [releases page](https://github.com/Flankrat/AntiqueAtlas/releases). Forge's update checker reads `update.json` on the `forge-only` branch, so for a new release: raise `mod_version` in `gradle.properties`, add the version to `update.json` (and point the promos at it), then publish the jar as a release.
+Releases are on the [releases page](https://github.com/Flankrat/AntiqueAtlas/releases). Forge's update checker reads `update.json` on the main branch (`1.20.1`), so for a new release: raise `mod_version` in `gradle.properties`, add the version to `update.json` (and point the promos at it), then publish the jar as a release.
 
 ## Changes in this version
 
