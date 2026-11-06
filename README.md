@@ -71,7 +71,7 @@ This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/An
 
 **The corner minimap** comes from **Kenkron**'s *Antique Atlas Overlay*, which was merged into Antique Atlas for 1.12.2 and is what RLCraft and RLCraft Dregora show. Its settings and defaults in this version follow RLCraft Dregora.
 
-**The automatic markers** follow **Nischhelm**'s *AntiqueAtlasAutoMarker* and **Fonnymunkey**'s *AARCAddon* for 1.12.2, as set up in RLCraft Dregora. The marker icons in `textures/gui/markers/artsy` are by **Artsy** and the ones in `textures/gui/markers/knightgallade` by **Knight Gallade**, made for RLCraft and RLCraft Dregora, and are used here for the RLCraft 1.20.1 port. The code that places the markers is new in this version.
+**The automatic markers** follow **Nischhelm**'s *AntiqueAtlasAutoMarker* and **Fonnymunkey**'s *AARCAddon* for 1.12.2, as set up in RLCraft Dregora. The marker icons in `textures/gui/markers/artsy` are by **Star Artsy** and the ones in `textures/gui/markers/knightgallade` by **Knight Gallade**, made for RLCraft and RLCraft Dregora. Star Artsy's icons are used with permission. The code that places the markers is new in this version.
 
 **The 1.20.1 port** this fork is based on is by **ByteDevEs** ([ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/AntiqueAtlas)).
 
@@ -87,7 +87,7 @@ This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/An
 
 - **Code** (`src/main/java`): GNU GPL v3 or later. This modified version is also GPL v3, and its source is this repository.
 - **Textures** (`src/main/resources/assets/antiqueatlas/textures`): by Hunternif, under [Creative Commons Attribution-NonCommercial-ShareAlike 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/), which means credit Hunternif and no commercial use.
-- **RLCraft marker icons** (`textures/gui/markers/artsy` and `textures/gui/markers/knightgallade`): by Artsy and Knight Gallade for RLCraft; not covered by the licenses above.
+- **RLCraft marker icons** (`textures/gui/markers/artsy` and `textures/gui/markers/knightgallade`): by Star Artsy (used with permission) and Knight Gallade for RLCraft; not covered by the licenses above.
 
 See [LICENSE](LICENSE) for the full text.
 
