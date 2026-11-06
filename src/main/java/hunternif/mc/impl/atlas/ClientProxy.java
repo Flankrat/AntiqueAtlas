@@ -61,6 +61,7 @@ public class ClientProxy implements PreparableReloadListener {
                 ExportProgressOverlay.INSTANCE.draw(event.getGuiGraphics(),
                         event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight()));
         MinecraftForge.EVENT_BUS.addListener(AtlasHandRenderer::onRenderHand);
+        MinecraftForge.EVENT_BUS.addListener(HudMinimap::onRenderGui);
         MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent event) -> {
             if (event.phase == TickEvent.Phase.END) {
                 KeyHandler.onClientTick(Minecraft.getInstance());

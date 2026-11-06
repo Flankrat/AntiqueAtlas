@@ -42,6 +42,24 @@ public class AntiqueAtlasConfig {
     public int markerSize = GuiAtlas.MARKER_SIZE / 2;
     public int playerIconWidth = 14;
     public int playerIconHeight = 16;
+    public boolean mapOnHeldAtlas = false;
+
+    //============ Corner minimap (1.12.2 overlay) ============
+    // Defaults are the RLCraft Dregora settings (config/antiqueatlas/atlas_overlay.cfg there).
+    public boolean minimapEnabled = true;
+    public boolean minimapRequiresHold = true;
+    public boolean minimapAlignRight = true;
+    public boolean minimapAlignBottom = false;
+    public int minimapX = 2;
+    public int minimapY = 2;
+    public int minimapWidth = GuiAtlas.WIDTH / 2;
+    public int minimapHeight = GuiAtlas.HEIGHT / 2;
+    public int minimapTileSize = 8;
+    public int minimapMarkerSize = GuiAtlas.MARKER_SIZE / 2;
+    public int minimapPlayerIconWidth = 7;
+    public int minimapPlayerIconHeight = 8;
+    public float minimapBorderX = 0.0F;
+    public float minimapBorderY = 0.0F;
 
     public static final ForgeConfigSpec SPEC;
 
@@ -72,6 +90,22 @@ public class AntiqueAtlasConfig {
     private static final ForgeConfigSpec.IntValue MARKER_SIZE;
     private static final ForgeConfigSpec.IntValue PLAYER_ICON_WIDTH;
     private static final ForgeConfigSpec.IntValue PLAYER_ICON_HEIGHT;
+    private static final ForgeConfigSpec.BooleanValue MAP_ON_HELD_ATLAS;
+
+    private static final ForgeConfigSpec.BooleanValue MINIMAP_ENABLED;
+    private static final ForgeConfigSpec.BooleanValue MINIMAP_REQUIRES_HOLD;
+    private static final ForgeConfigSpec.BooleanValue MINIMAP_ALIGN_RIGHT;
+    private static final ForgeConfigSpec.BooleanValue MINIMAP_ALIGN_BOTTOM;
+    private static final ForgeConfigSpec.IntValue MINIMAP_X;
+    private static final ForgeConfigSpec.IntValue MINIMAP_Y;
+    private static final ForgeConfigSpec.IntValue MINIMAP_WIDTH;
+    private static final ForgeConfigSpec.IntValue MINIMAP_HEIGHT;
+    private static final ForgeConfigSpec.IntValue MINIMAP_TILE_SIZE;
+    private static final ForgeConfigSpec.IntValue MINIMAP_MARKER_SIZE;
+    private static final ForgeConfigSpec.IntValue MINIMAP_PLAYER_ICON_WIDTH;
+    private static final ForgeConfigSpec.IntValue MINIMAP_PLAYER_ICON_HEIGHT;
+    private static final ForgeConfigSpec.DoubleValue MINIMAP_BORDER_X;
+    private static final ForgeConfigSpec.DoubleValue MINIMAP_BORDER_Y;
 
     static {
         AntiqueAtlasConfig d = new AntiqueAtlasConfig();
@@ -135,6 +169,10 @@ public class AntiqueAtlasConfig {
         b.pop();
 
         b.push("appearance");
+        MAP_ON_HELD_ATLAS = b.comment("If true, the atlas in your hand shows its map in first person, like a held map (Antique Atlas 7 style).",
+                        "If false, it looks like a normal item and the corner minimap shows the map instead (1.12.2 style).",
+                        "The settings below in this section only apply to the map on the held atlas.")
+                .define("mapOnHeldAtlas", d.mapOnHeldAtlas);
         TILE_SIZE = b.comment("The size (in GUI pixels) of a map's tile.",
                         "Note that this will change with Minecraft's GUI scale configuration.",
                         "When using a small gui scale, the map may look better with a tileSize of 16 or more.")
@@ -146,6 +184,48 @@ public class AntiqueAtlasConfig {
                 .defineInRange("playerIconWidth", d.playerIconWidth, 0, 256);
         PLAYER_ICON_HEIGHT = b.comment("The height (in GUI pixels) of the player's icon.")
                 .defineInRange("playerIconHeight", d.playerIconHeight, 0, 256);
+        b.pop();
+
+        b.comment("The corner minimap from 1.12.2: while you hold an atlas, a small copy of its map is shown in a corner of the screen.")
+                .push("minimap");
+        MINIMAP_ENABLED = b.comment("Set true to enable the minimap.")
+                .define("enabled", d.minimapEnabled);
+        MINIMAP_REQUIRES_HOLD = b.comment("If true, the minimap shows the map of an atlas only while it is held.",
+                        "If false, the minimap shows the map of the atlas in the offhand, or else the first atlas in the hotbar.")
+                .define("requiresHold", d.minimapRequiresHold);
+        MINIMAP_ALIGN_RIGHT = b.comment("If true, the map position's x axis will align 0 to the right of the screen, increasing towards the left.")
+                .define("alignRight", d.minimapAlignRight);
+        MINIMAP_ALIGN_BOTTOM = b.comment("If true, the map position's y axis will align 0 to the bottom of the screen, increasing towards the top.")
+                .define("alignBottom", d.minimapAlignBottom);
+        MINIMAP_X = b.comment("Map's minimum position along the x axis in GUI pixels.",
+                        "Note that this will change with Minecraft's GUI scale configuration.")
+                .defineInRange("xPosition", d.minimapX, -4096, 4096);
+        MINIMAP_Y = b.comment("Map's minimum position along the y axis in GUI pixels.",
+                        "Note that this will change with Minecraft's GUI scale configuration.")
+                .defineInRange("yPosition", d.minimapY, -4096, 4096);
+        MINIMAP_WIDTH = b.comment("Map's width in GUI pixels.", "Note that this will change with Minecraft's GUI scale configuration.")
+                .defineInRange("width", d.minimapWidth, 0, 4096);
+        MINIMAP_HEIGHT = b.comment("Map's height in GUI pixels.", "Note that this will change with Minecraft's GUI scale configuration.")
+                .defineInRange("height", d.minimapHeight, 0, 4096);
+        MINIMAP_TILE_SIZE = b.comment("The size (in GUI pixels) of a map's tile.",
+                        "Note that this will change with Minecraft's GUI scale configuration.",
+                        "When using a small gui scale, the map may look better with a tileSize of 16 or more.")
+                .defineInRange("tileSize", d.minimapTileSize, 1, 64);
+        MINIMAP_MARKER_SIZE = b.comment("The size (in GUI pixels) of a marker on the map. 0 hides markers and the player icon.",
+                        "Note that this will change with Minecraft's GUI scale configuration.")
+                .defineInRange("markerSize", d.minimapMarkerSize, 0, 256);
+        MINIMAP_PLAYER_ICON_WIDTH = b.comment("The width (in GUI pixels) of the player's icon.")
+                .defineInRange("playerIconWidth", d.minimapPlayerIconWidth, 0, 256);
+        MINIMAP_PLAYER_ICON_HEIGHT = b.comment("The height (in GUI pixels) of the player's icon.")
+                .defineInRange("playerIconHeight", d.minimapPlayerIconHeight, 0, 256);
+        MINIMAP_BORDER_X = b.comment("The width of the map border on the left and right sides of the minimap tiles.",
+                        "Represented as a fraction of the image width.",
+                        "Below a certain threshold, this border will be overtaken by the map border graphic.")
+                .defineInRange("borderX", (double) d.minimapBorderX, 0.0, 0.5);
+        MINIMAP_BORDER_Y = b.comment("The width of the map border on the top and bottom sides of the minimap tiles.",
+                        "Represented as a fraction of the image height.",
+                        "Below a certain threshold, this border will be overtaken by the map border graphic.")
+                .defineInRange("borderY", (double) d.minimapBorderY, 0.0, 0.5);
         b.pop();
 
         SPEC = b.build();
@@ -181,6 +261,22 @@ public class AntiqueAtlasConfig {
         c.markerSize = MARKER_SIZE.get();
         c.playerIconWidth = PLAYER_ICON_WIDTH.get();
         c.playerIconHeight = PLAYER_ICON_HEIGHT.get();
+        c.mapOnHeldAtlas = MAP_ON_HELD_ATLAS.get();
+
+        c.minimapEnabled = MINIMAP_ENABLED.get();
+        c.minimapRequiresHold = MINIMAP_REQUIRES_HOLD.get();
+        c.minimapAlignRight = MINIMAP_ALIGN_RIGHT.get();
+        c.minimapAlignBottom = MINIMAP_ALIGN_BOTTOM.get();
+        c.minimapX = MINIMAP_X.get();
+        c.minimapY = MINIMAP_Y.get();
+        c.minimapWidth = MINIMAP_WIDTH.get();
+        c.minimapHeight = MINIMAP_HEIGHT.get();
+        c.minimapTileSize = MINIMAP_TILE_SIZE.get();
+        c.minimapMarkerSize = MINIMAP_MARKER_SIZE.get();
+        c.minimapPlayerIconWidth = MINIMAP_PLAYER_ICON_WIDTH.get();
+        c.minimapPlayerIconHeight = MINIMAP_PLAYER_ICON_HEIGHT.get();
+        c.minimapBorderX = MINIMAP_BORDER_X.get().floatValue();
+        c.minimapBorderY = MINIMAP_BORDER_Y.get().floatValue();
         return c;
     }
 }

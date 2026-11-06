@@ -29,6 +29,9 @@ public final class AtlasHandRenderer {
     private AtlasHandRenderer() {}
 
     public static void onRenderHand(RenderHandEvent event) {
+        if (!hunternif.mc.impl.atlas.AntiqueAtlasMod.CONFIG.mapOnHeldAtlas) {
+            return; // the corner minimap shows the map instead; the atlas renders as a normal item
+        }
         ItemStack item = event.getItemStack();
         if (item.isEmpty() || item.getItem() != AntiqueAtlasItems.ATLAS.get()) {
             return;
