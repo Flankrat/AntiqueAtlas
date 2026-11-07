@@ -87,9 +87,9 @@ This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/An
 
 - **Code** (`src/main/java`): GNU GPL v3 or later. This modified version is also GPL v3, and its source is this repository.
 - **Textures** (`src/main/resources/assets/antiqueatlas/textures`): by Hunternif, under [Creative Commons Attribution-NonCommercial-ShareAlike 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/), which means credit Hunternif and no commercial use.
-- **RLCraft marker icons** (`textures/gui/markers/artsy` and `textures/gui/markers/knightgallade`): by Star Artsy (used with permission) and Knight Gallade for RLCraft; not covered by the licenses above.
+- **RLCraft marker icons** (`textures/gui/markers/artsy` and `textures/gui/markers/knightgallade`): by Star Artsy (used with permission) and Knight Gallade for RLCraft; not covered by the licenses above. These files are taken from [AntiqueAtlasAutoMarker](https://github.com/Nischhelm/AntiqueAtlasAutoMarker), which is MIT-licensed; its license notice is in [LICENSE-AntiqueAtlasAutoMarker.txt](LICENSE-AntiqueAtlasAutoMarker.txt).
 
-See [LICENSE](LICENSE) for the full text.
+See [LICENSE](LICENSE) for the full text. Both license files are also included in the mod jar under `META-INF/licenses`.
 
 ## API
 
