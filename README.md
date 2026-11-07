@@ -50,7 +50,7 @@ Releases are on the [releases page](https://github.com/Flankrat/AntiqueAtlas/rel
 
 ## Changes in this version
 
-This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/AntiqueAtlas) (Antique Atlas 7.1.2 for 1.20.1), which is based on [Hunternif/AntiqueAtlas](https://github.com/Hunternif/AntiqueAtlas). The commit history has the details. In short:
+This is a fork of [ByteDevEs-MC/AntiqueAtlas](https://github.com/ByteDevEs-MC/AntiqueAtlas) (Antique Atlas 7.1.2 for 1.20.1), which is based on [Hunternif/AntiqueAtlas](https://github.com/Hunternif/AntiqueAtlas). The commit history has the details. It has its own version numbers, starting again at 1.0.0 (the first Forge-only build), since it has changed too much to follow Antique Atlas 7's. In short:
 
 - **Forge-only.** The Architectury multi-loader project (common, Forge and Fabric parts, Fabric's Yarn names) is now a single ForgeGradle project using Mojang's official names.
 - **No library mods.**
