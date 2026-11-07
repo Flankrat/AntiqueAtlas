@@ -88,6 +88,11 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml']) {
         expand replaceProperties
     }
+    // Ship the license notices with the jar: GPL/CC for Antique Atlas, MIT for the marker icons
+    // taken from AntiqueAtlasAutoMarker.
+    from([rootProject.file('LICENSE'), rootProject.file('LICENSE-AntiqueAtlasAutoMarker.txt')]) {
+        into 'META-INF/licenses'
+    }
 }
 
 jar {
