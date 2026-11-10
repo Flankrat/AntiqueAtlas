@@ -2,7 +2,7 @@
 
 Antique Atlas is a book that acts like a map featuring infinite scrolling, zoom and custom labeled markers. The map is generated around the player by calculating the average biome in each 16x16 chunk.
 
-This is a Forge-only version of Antique Atlas for Minecraft 1.20.1, made for the RLCraft 1.20.1 port. It needs nothing besides Forge: no Architectury API, no Cloth Config, no Fabric compatibility layer. It keeps the RLCraft / RLCraft Dregora behaviour from 1.12.2, including the corner minimap.
+This is a Forge-only version of Antique Atlas for Minecraft 1.20.1. It needs nothing besides Forge: no Architectury API, no Cloth Config, no Fabric compatibility layer. It keeps the RLCraft / RLCraft Dregora behaviour from 1.12.2, including the corner minimap.
 
 ## Using it
 
