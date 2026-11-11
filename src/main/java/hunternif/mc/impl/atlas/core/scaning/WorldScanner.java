@@ -102,8 +102,17 @@ public class WorldScanner {
                 return null;
             }
 
-            // TODO FABRIC: forceChunkLoading crashes here
-            ChunkAccess chunk = world.getChunk(x, z, ChunkStatus.FULL, AntiqueAtlasMod.CONFIG.forceChunkLoading);
+            ChunkAccess chunk;
+            if (AntiqueAtlasMod.CONFIG.forceChunkLoading) {
+                // Opt-in: load/generate the chunk and wait for it (can stall the server tick)
+                chunk = world.getChunk(x, z, ChunkStatus.FULL, true);
+            } else {
+                // Non-blocking: returns the chunk only if it's already fully loaded, otherwise null.
+                // Don't use getChunk(x, z, FULL, false) here: on the server thread it still waits
+                // for chunks that are mid-generation (hasChunk() is true for those), which froze
+                // ticks for seconds while exploring new terrain. Skipped chunks get scanned on a later pass.
+                chunk = world.getChunkSource().getChunkNow(x, z);
+            }
 
             // Skip chunk if it hasn't loaded yet:
             if (chunk == null) {
