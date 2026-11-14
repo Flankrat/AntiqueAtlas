@@ -72,7 +72,9 @@ public class RecipeAtlasCombining implements CraftingRecipe {
                 }
             }
         }
-        return atlasIds.size() < 1 ? ItemStack.EMPTY : firstAtlas.copy();
+        // copyWithCount(1): with stackable atlases the first slot can hold several, and a
+        // plain copy() would hand out the whole stack as the result.
+        return atlasIds.size() < 1 ? ItemStack.EMPTY : firstAtlas.copyWithCount(1);
     }
 
     @Override
