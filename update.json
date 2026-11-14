@@ -1,10 +1,12 @@
 {
   "homepage": "https://github.com/Flankrat/AntiqueAtlas/releases",
   "promos": {
-    "1.20.1-latest": "1.1.1",
-    "1.20.1-recommended": "1.1.1"
+    "1.20.1-latest": "1.1.3",
+    "1.20.1-recommended": "1.1.3"
   },
   "1.20.1": {
+    "1.1.3": "Atlases with the same number now stack (up to 64, like maps), and the empty atlas is in the Tools & Utilities creative tab so it shows up in JEI.",
+    "1.1.2": "Fixes multi-second server lag spikes while exploring: the atlas no longer waits for chunks that are still generating.",
     "1.1.1": "Fixes a crash on every craft (the crafting event's listener returned the wrong result type).",
     "1.1.0": "Automatic markers: dragon roosts and caves, battle towers, dungeons, RLCraft landmarks and other structures, plus activated waystones. RLCraft marker icons by Star Artsy and Knight Gallade.",
     "1.0.0": "Forge-only build for the RLCraft 1.20.1 port: no Architectury or Cloth Config, the 1.12.2 corner minimap, the atlas book in hand, and map textures for every biome."
